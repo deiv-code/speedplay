@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 280px;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0f0f0f;
+      color: #e1e1e1;
+      padding: 16px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .header svg {
+      width: 24px;
+      height: 24px;
+      fill: #ff4444;
+    }
+
+    .header h1 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .speed-display {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .speed-value {
+      font-size: 42px;
+      font-weight: 700;
+      color: #ff4444;
+      line-height: 1;
+    }
+
+    .speed-label {
+      font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    .slider-container {
+      margin-bottom: 16px;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: linear-gradient(to right, #ff4444, #ff8800);
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid #ff4444;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 10px;
+      color: #666;
+    }
+
+    .presets {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .preset-btn {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #ccc;
+      padding: 8px 0;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .preset-btn:hover {
+      background: #2a2a2a;
+      border-color: #ff4444;
+      color: #fff;
+    }
+
+    .preset-btn.active {
+      background: #ff4444;
+      border-color: #ff4444;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .custom-input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .custom-input-row input {
+      flex: 1;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #fff;
+      padding: 8px 10px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .custom-input-row input:focus {
+      border-color: #ff4444;
+    }
+
+    .custom-input-row button {
+      background: #ff4444;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .custom-input-row button:hover {
+      background: #e03030;
+    }
+
+    .status {
+      text-align: center;
+      font-size: 11px;
+      color: #666;
+      padding-top: 8px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .status.connected {
+      color: #4caf50;
+    }
+
+    .status.error {
+      color: #ff4444;
+    }
+
+    .shortcut-hint {
+      text-align: center;
+      font-size: 10px;
+      color: #555;
+      margin-top: 8px;
+    }
+
+    kbd {
+      background: #222;
+      border: 1px solid #444;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-family: inherit;
+      font-size: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <h1>SpeedPlay</h1>
+  </div>
+
+  <div class="speed-display">
+    <div class="speed-value" id="speedValue">1.0x</div>
+    <div class="speed-label">Current Speed</div>
+  </div>
+
+  <div class="slider-container">
+    <input type="range" id="speedSlider" min="0.25" max="10" step="0.25" value="1">
+    <div class="slider-labels">
+      <span>0.25x</span>
+      <span>5x</span>
+      <span>10x</span>
+    </div>
+  </div>
+
+  <div class="presets">
+    <button class="preset-btn" data-speed="1">1x</button>
+    <button class="preset-btn" data-speed="1.5">1.5x</button>
+    <button class="preset-btn" data-speed="2">2x</button>
+    <button class="preset-btn" data-speed="3">3x</button>
+    <button class="preset-btn" data-speed="4">4x</button>
+    <button class="preset-btn" data-speed="5">5x</button>
+    <button class="preset-btn" data-speed="8">8x</button>
+    <button class="preset-btn" data-speed="10">10x</button>
+  </div>
+
+  <div class="custom-input-row">
+    <input type="number" id="customSpeed" placeholder="Custom speed..." min="0.1" max="16" step="0.1">
+    <button id="applyCustom">Set</button>
+  </div>
+
+  <div class="status" id="status">Waiting for YouTube tab...</div>
+  <div class="shortcut-hint">On YouTube: <kbd>D</kbd> speed up &middot; <kbd>S</kbd> slow down</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

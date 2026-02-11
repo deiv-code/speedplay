@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "SpeedPlay - YouTube Speed Control",
+  "version": "1.0.0",
+  "description": "Set YouTube playback speed beyond 2x — go 3x, 4x, 5x, or any custom speed.",
+  "permissions": ["activeTab", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
